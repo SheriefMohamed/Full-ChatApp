@@ -1,14 +1,14 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
 import Logo from '../assets/logo.png';
 import "react-toastify/dist/ReactToastify.css";
 import { registerRoute } from "../utils/APIRoutes";
 
-const Regist = () => {
-
+function Regist() {
+  const navigate = useNavigate();
   const toastOptions = {
     position: "bottom-right",
     autoClose: 3000,
@@ -22,15 +22,30 @@ const Regist = () => {
     password: "",
     confirmPassword: "",
   });
+
+  useEffect(()=> {
+    if(localStorage.getItem('chat-app-user')){
+      navigate('/')
+    }
+  }, [])
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     if(handleValidation()){
-      const { email, username, password } = values;
-      const { data } = await axios.post(registerRoute, {
-        username,
-        email,
-        password,
-      });
+      try{
+        const { email, username, password } = values;
+        const { data } = await axios.post(registerRoute, {
+          username,
+          email,
+          password
+        });
+        if (data.status === true) {
+          localStorage.setItem('chat-app-user',JSON.stringify(data.user));
+          navigate("/");
+        }
+      }catch(err){
+        toast.error(err.response.data.errorMessage, toastOptions);
+      }
     }
   }
 
@@ -80,7 +95,7 @@ const Regist = () => {
           <input type="password" placeholder="Confirm Password" name="confirmPassword" onChange={(event) => handleChange(event)}/>
           <button type="submit">Create User</button>
           <span>
-            Already have an account ? <Link to="/login">Login.</Link>
+            Already have an account ? <Link to="/login">Login</Link>
           </span>
         </form>
       </FormContainer>
@@ -133,8 +148,8 @@ input {
   }
 }
 button {
-  background-color: white;
-  color: #ff7404;
+  background-color: #4e0eff;
+  color: white;
   padding: 1rem 2rem;
   border: none;
   font-weight: bold;
@@ -144,7 +159,6 @@ button {
   text-transform: uppercase;
   &:hover {
     background-color: #4e0eff;
-    color: #ff7404
   }
 }
 span {
