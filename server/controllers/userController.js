@@ -39,3 +39,26 @@ exports.login = catchMiddleware(async (req, res, next) => {
         user
     })
 })
+
+exports.setAvatar = catchMiddleware(async (req, res, next) => {
+    const user = await User.findByIdAndUpdate(req.params.id, {
+        isAvatarImageSet: true,
+        avatarImage : req.body.image
+    });
+
+    return res.json({
+        isSet : user.isAvatarImageSet,
+        image: user.avatarImage
+    })
+})
+
+exports.getAllUsers = catchMiddleware(async (req, res, next) => {
+    const users = await User.find({
+        _id : {$ne:req.params.id}
+    }).select({
+        __v: 0,
+        isAvatarImageSet: 0
+    });
+
+    return res.json(users);
+})

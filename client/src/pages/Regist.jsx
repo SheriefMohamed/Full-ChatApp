@@ -27,7 +27,7 @@ function Regist() {
     if(localStorage.getItem('chat-app-user')){
       navigate('/')
     }
-  }, [])
+  }, [navigate])
 
   const handleSubmit = async (event) => {
     event.preventDefault();
