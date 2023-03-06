@@ -75,11 +75,13 @@ flex-direction: column;
 justify-content: center;
 gap: 1rem;
 align-items: center;
-background-color: #131324;
+background-color: #121212;
 .container {
   height: 85vh;
   width: 85vw;
-  background-color: #00000076;
+  background-color: #121212;
+  border: 2px solid #0d0d0d;
+  border-radius: .3em;
   display: grid;
   grid-template-columns: 25% 75%;
   @media screen and (min-width: 720px) and (max-width: 1080px) {

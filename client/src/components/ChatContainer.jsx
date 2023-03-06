@@ -2,7 +2,6 @@ import React, {useState, useEffect, useRef} from 'react'
 import styled from "styled-components";
 import Logout from './Logout';
 import ChatInput from './ChatInput';
-import Messages from './Messages';
 import { sendMessageRoute, recieveMessageRoute} from '../utils/APIRoutes';
 import axios from 'axios';
 import {v4 as uuidv4} from 'uuid';
@@ -106,6 +105,7 @@ overflow: hidden;
   justify-content: space-between;
   align-items: center;
   padding: 0 2rem;
+  background-color : #0d0d0d;
   .user-details {
     display: flex;
     margin-top: 10px;
@@ -155,13 +155,13 @@ overflow: hidden;
   .sended {
     justify-content: flex-end;
     .content {
-      background-color: #4f04ff21;
+      background-color: #58287F;
     }
   }
   .recieved {
     justify-content: flex-start;
     .content {
-      background-color: #9900ff20;
+      background-color: #FF4C29;
     }
   }
 }
