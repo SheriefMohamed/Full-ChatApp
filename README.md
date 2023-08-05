@@ -23,9 +23,8 @@ Build a chat application using MERN with socket.io
   ```
 
 ## Environment variables
+Add your config variables values in the .env file in backend/config folder.
 ```
-  # .env file
-
   PORT=5000
   DATABASE_LINK=""
 ```
